@@ -1,10 +1,18 @@
-var button = document.getElementById('start-btn');
-var display = document.getElementById('display');
 
-var time = {
-  seconds: 0,
-  minutes: 0,
-};
+var startButton = document.getElementById('start-btn'),
+    resetButton = document.getElementById('reset-btn'),
+    display = document.getElementById('display'),
+    pomodoro = 25,
+    time = {
+      seconds: 0,
+      minutes: 0,
+    },
+    interval;
+
+function setTime() {
+  time.minutes = pomodoro;
+  time.seconds = 0;
+}
 
 function timer() {
   displayTime();
@@ -13,7 +21,7 @@ function timer() {
 
 function countdown(){
   if ( time.seconds == 0 && time.minutes == 0) {
-    clearInterval(countdown);
+    clearInterval(interval);
   } else if ( time.seconds == 0 ) {
     time.minutes -= 1;
     time.seconds = 59;
@@ -27,7 +35,19 @@ function displayTime(){
   ( time.seconds / 10 > 1 ? time.seconds : "0" + time.seconds);
 };
 
-button.addEventListener('click', function(){
-  time.minutes = 25;
-  setInterval(timer, 1000);
+setTime();
+displayTime();
+
+startButton.addEventListener('click', function(){
+  interval = setInterval(timer, 1000);
+  startButton.classList.add("hidden");
+  resetButton.classList.remove("hidden");
+});
+
+resetButton.addEventListener('click', function(){
+  clearInterval(interval);
+  setTime();
+  displayTime();
+  resetButton.classList.add("hidden");
+  startButton.classList.remove("hidden");
 });
