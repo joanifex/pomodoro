@@ -1,6 +1,8 @@
 
 var startButton = document.getElementById('start-btn'),
     resetButton = document.getElementById('reset-btn'),
+    pauseButton = document.getElementById('pause-btn'),
+    resumeButton = document.getElementById('resume-btn'),
     display = document.getElementById('display'),
     pomodoro = 25,
     time = {
@@ -42,6 +44,7 @@ startButton.addEventListener('click', function(){
   interval = setInterval(timer, 1000);
   startButton.classList.add("hidden");
   resetButton.classList.remove("hidden");
+  pauseButton.classList.remove("hidden");
 });
 
 resetButton.addEventListener('click', function(){
@@ -49,5 +52,19 @@ resetButton.addEventListener('click', function(){
   setTime();
   displayTime();
   resetButton.classList.add("hidden");
+  pauseButton.classList.add("hidden");
+  resumeButton.classList.add("hidden");
   startButton.classList.remove("hidden");
 });
+
+pauseButton.addEventListener('click', function(){
+  clearInterval(interval);
+  pauseButton.classList.add("hidden");
+  resumeButton.classList.remove("hidden");
+});
+
+resumeButton.addEventListener('click', function(){
+  interval = setInterval(timer, 1000);
+  resumeButton.classList.add("hidden");
+  pauseButton.classList.remove("hidden");
+})

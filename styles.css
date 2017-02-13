@@ -2,6 +2,10 @@ body {
   text-align: center;
 }
 
+.display-container {
+  font-size: 8rem;
+}
+
 .hidden {
   display: none;
 }
